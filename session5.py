@@ -47,7 +47,7 @@ def polygon_area(length, *args, sides = 3, **kwargs):
     if not isinstance(sides, int):
         raise TypeError(f"Side can be of integer type only")
     if not isinstance(length, (int,float)):
-        raise TypeError(f"Length can be a real number. (int or float) type only")
+        raise TypeError(f"Length can be a real number, int or float type only")
     if not 2<sides<7 :
         raise ValueError(f"Number of sides must be between [3-6]")
     if length < 0 :
@@ -73,11 +73,11 @@ def temp_converter(temp, *args, temp_given_in = 'f', **kwargs):
 
     # Validations
     if not isinstance(temp, (int,float)):
-        raise TypeError(f"Temprature can be a real number (int or float) type only")
+        raise TypeError(f"Temprature can be a real number, int or float type only")
     if not isinstance(temp_given_in, str):
         raise TypeError(f"Charcater string expected")
     if temp_given_in not in {'f', 'c','F','C'}:
-        raise ValueError(f"Only 'f' or 'c' is allowed for fahrenheit or celsius respectively")
+        raise ValueError(f"Only f or c is allowed for fahrenheit or celsius respectively")
     if temp_given_in in {'c','C'} and temp < -273.15: # Celsius
         raise ValueError(f"Temprature can't go below -273.15 celsius = 0 Kelvin")
     elif temp_given_in in {'f','F'} and temp < -459.67: # Fahrenheit
@@ -110,10 +110,12 @@ def speed_converter(speed, *args, dist='km', time='min', **kwargs):
         raise ValueError(f"Incorrect unit of Time. Only ms/s/min/hr/day allowed")
     if speed <0:
         raise ValueError(f"Speed can't be negative")
+    if speed >300000:
+        raise ValueError(f"Speed can't be greater than speed of light")
     if len([*args]):
-        raise TypeError(f"temp_converter function takes maximum 1 positional arguments, more provided")
+        raise TypeError(f"speed_converter function takes maximum 1 positional arguments, more provided")
     if len({**kwargs}):
-        raise TypeError(f"temp_converter function take maximum 2 keyword/named arguments, more provided")
+        raise TypeError(f"speed_converter function take maximum 2 keyword/named arguments, more provided")
 
     # Return the converted speed
     d_dist = {'KM':1,'M':1000,'FT':3280.84,'YRD':1093.61} # Dict for distance conversion
